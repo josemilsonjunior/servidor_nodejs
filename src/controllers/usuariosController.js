@@ -1,28 +1,22 @@
-//EXPORTA FUNCAO COM A LISTAGEM DE VARIOS USUARIOS
+//IMPORTA MODELO DE USUARIO DO SEQUELIZE
+const Usuario = require('../models').Usuario;
+
+//LISTA DE TODOS OS USUÁRIOS SALVOS NO BANCO
 exports.listAll = (req, res) => {
-    let usuarios = [
-        {
-            nome: 'teste 01',
-            email: 'teste@123.com'
-        }, 
-        {
-            nome: 'teste 02',
-            email: 'teste2@123.com'
-        },
-        {
-            nome: 'teste 03',
-            email: 'teste3@123.com'
-        }
-    ]
-    res.send(usuarios);
+    Usuario.findAll().then(usuarios => {
+        res.send(usuarios);
+    }).catch(error => {
+        res.send(error);
+    })
 }
 
-//EXPORTA FUNCAO DANDO RETORNO DE MENSAGEM DE CONFIRMAÇÃO 
-//E CONTEÚDO DO CORPO DA REQUISIÇÃO.
+//SALVA NO BANCO O USUARIO 
 exports.createOne = (req, res) => {
-    let response = {
-        mensage: "Usuário criado com sucesso",
-        data: req.body
-    }
-    res.send(response);
+    console.log(Usuario);
+    const {nome, email} = req.body;
+    Usuario.create({nome, email}).then(usuario => {
+        res.send(usuario);
+    }).catch(error => {
+        res.send(error);
+    });
 }
