@@ -12,24 +12,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 //(FILTRA A INF. JSON DO BODY)
 app.use(bodyParser.json());
 
-//DEFININDO ROTAS DE REQUISIÇÃO RAIZ
+//IMPORTA E DEFINE ROTA PARA USUARIOS
+const routesUsuarios = require('./src/routes/usuarioRoutes.js');
+routesUsuarios(app);
+
+//DEFININDO ROTA DE REQUISIÇÃO RAIZ
 app.route('/')
     .get((req, res) => {
-        res.send('Respondendo no método GET Raiz');
-    })
-    .post((req, res) => {
-        res.send('Respondendo no método POST Raiz');
+        res.send('API TodDoList funcionando!');
     });
-
-//DEFININDO ROTAS DE REQUISIÇÃO PARA USUÁRIOS
-app.route('/usuarios')
-    .get((req, res) => {
-        res.send('Respondendo no método GET em Usuários');
-    })
-    .post((req, res) => {
-        res.send('Respondendo no método POST em Usuários');
-    });
-
+    
 //DEFININDO PORTA QUE O SERVIDOR VAI OUVIR
 app.listen(port);
-console.log('Servidor Funcionando, na porta: ', port);
+console.log("Servidor Iniciado: ", port);
